@@ -1,0 +1,64 @@
+This file explains how each feature is preprocessed for this specific combination of data.
+(Things might need to change once we incorporate more data when testing/training the dataset.
+Right now it is mainly focused at data visualization)
+
+primaryid: dropped as only use is merging data together
+case_idx: no preprocessing needed
+caseversion: dropped as it is a constant feature
+event_dt: dropped as it is a date
+event_dt_num: Dropped as same information as event_dt
+mfr_dt/mfr_dt_num: dropped as it is a constant feature
+init_fda_dt/init_fda_num: dropped as we do not care about dates
+fda_dt/fda_dt_num: dropped for same reason above
+mfr_sndr: dropped as it is a constant field
+lit_ref: dropped as it is an empty field
+age: TODO: binned into groups of [0-10), [10-20) and so on
+age_cod: Dropped as just states year
+age_grp: Dropped because it is empty
+sex: 0 for F, 1 for Male
+wt: TODO: Fill NaN and convert all lbs to kgs
+wt_cod: Use to determing unit of measure and then drop
+rept_dt: Dropped because of date
+occp_cod: enumerate values
+reporter_coutnry: enumerate country
+ocr_country: dropped as empty feature
+occp_cod_num: same values as occp_cod so drop
+caseid_y: no preprocessing needed
+drug_seq: none needed
+role_cod: enumerate
+drugname: enumerate
+prod_ai: enumerate
+val_vbm: drop as it only tells us information about how drug info was recorded
+route: enumerate, fill NaN
+dose_vbm: Dropped as more specific features coming up
+cum_dose_chr/cum_dose_unit: drop as empty features
+dechal: enumerate
+rechal: enumerate
+Lot_num: enumerate
+exp_dt: drop as it is a date
+nda_num: dropped as it is not relevant with our needs
+dose_amt: enumerate
+dose_unit: enumerate (might need to weight this?)
+dose_form: enumerate
+dose_freq: enumerate (might need to weight this)
+caseid_x: drop this (duplicate)
+rpsr_cod: enumerate
+caseid_y: drop this (duplicate)
+dsg_drug_seq: dropped as used for linking
+start_dt, start_t_num, end_dt, end_dt_num: dropped
+dur: dropped (this field involves therapy)
+dur_cod: dropped because we dropped dur
+caseid: keep this and drop all caseid_x and caseid_y
+indi_drug_seq: dropped for data visualization as it is used for linking
+preffered_term: enumerate
+
+
+
+Note: enumerate means enumerating in alphabetical order
+Note: Replaced nan with -1.
+
+
+
+
+
+
