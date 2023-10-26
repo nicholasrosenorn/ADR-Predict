@@ -25,10 +25,11 @@ class PreProcess:
         drop_cols = ['primaryid', 'caseid_x', 'event_dt_num', 'init_fda_dt', 'init_fda_dt_num',
                      'fda_dt', 'fda_dt_num', 'age_cod', 'rept_dt', 'occp_cod_num', 'val_vbm', 'dose_vbm', 'exp_dt',
                      'nda_num', 'dsg_drug_seq', 'start_dt', 'start_dt_num', 'end_dt', 'end_dt_num',
-                     'dur', 'dur_cod', 'caseid', 'caseid_x', 'caseid_y', 'indi_drug_seq']
+                     'dur', 'dur_cod', 'caseid', 'caseid_x.1', 'caseid_x.2','caseid_y.1', 'caseid_y.2', 'indi_drug_seq']
         self.data.drop(labels=drop_cols, axis=1, inplace=True)
 
     # function to preprocess age and weight
+    # also do gender here
     def bin_features(self):
         # age
         ages = [-1,0,10,20,30,40,50,60,70,80,90,100,200]
@@ -49,7 +50,7 @@ class PreProcess:
         self.data['wt'] = pd.cut(x=self.data['wt'], bins=weights)
         self.data.drop(labels=['wt_cod'], axis=1, inplace=True)
 
-
+        self.data['sex'] = self.data['sex'].map(dict(zip(['F', 'M'], [0, 1])))
 
 
 
