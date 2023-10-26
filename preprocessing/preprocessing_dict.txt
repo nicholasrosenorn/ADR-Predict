@@ -23,7 +23,7 @@ occp_cod: enumerate values
 reporter_coutnry: enumerate country
 ocr_country: dropped as empty feature
 occp_cod_num: same values as occp_cod so drop
-caseid_y: no preprocessing needed
+caseid_y: dropped as caseid is there
 drug_seq: none needed
 role_cod: enumerate
 drugname: enumerate
@@ -51,10 +51,11 @@ dur_cod: dropped because we dropped dur
 caseid: keep this and drop all caseid_x and caseid_y
 indi_drug_seq: dropped for data visualization as it is used for linking
 preffered_term: enumerate
+indi_pt: encode
 
 
 
-Note: enumerate means enumerating in alphabetical order
+Note: enumerate means one hot encoding
 Note: Replaced nan with -1.
 
 
