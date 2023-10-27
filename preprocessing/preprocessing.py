@@ -25,7 +25,8 @@ class PreProcess:
         drop_cols = ['primaryid', 'caseid_x', 'caseid_y', 'event_dt', 'event_dt_num', 'init_fda_dt', 'init_fda_dt_num',
                      'fda_dt', 'fda_dt_num', 'age_cod', 'rept_dt', 'occp_cod_num', 'val_vbm', 'dose_vbm', 'exp_dt',
                      'nda_num', 'dsg_drug_seq', 'start_dt', 'start_dt_num', 'end_dt', 'end_dt_num',
-                     'dur', 'dur_cod', 'caseid_x.1', 'caseid_x.2','caseid_y.1', 'caseid_y.2', 'indi_drug_seq']
+                     'dur', 'dur_cod', 'caseid_x.1', 'caseid_x.2','caseid_y.1', 'caseid_y.2', 'indi_drug_seq',
+                     'dose_amt', 'dose_unit']
         self.data.drop(labels=drop_cols, axis=1, inplace=True)
 
     # function to preprocess age and weight
@@ -56,7 +57,7 @@ class PreProcess:
     # function that encodes all the remaining necessary features
     def encode_features(self):
         features = ['occp_cod', 'reporter_country', 'role_cod', 'drugname', 'prod_ai', 'route', 'dechal', 'rechal',
-                    'lot_num', 'dose_amt', 'dose_unit', 'dose_form', 'dose_freq', 'rpsr_cod', 'indi_pt']
+                    'lot_num', 'dose_form', 'dose_freq', 'rpsr_cod', 'indi_pt']
         print('Before Encoding')
         encoded_data = pd.get_dummies(data=self.data, columns=features, drop_first=True, dtype=int, prefix=features)
         #encoded_data.to_csv('./data/encoded_data.csv')
@@ -80,10 +81,10 @@ if __name__ == '__main__':
 
     pp.bin_features()
 
-    pp.data.to_csv('./data/binned_data.csv', index=False)
+    #pp.data.to_csv('./data/binned_data.csv', index=False)
     pp.encode_features()
 
-    pp.data.fillna(value=int(-1), inplace=True)
+    #pp.data.fillna(value=int(-1), inplace=True)
 
     pp.data.to_csv('./data/preprocessed_data.csv', index=False)  # from ADR-Predict/ dir
 
