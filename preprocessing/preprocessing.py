@@ -81,12 +81,12 @@ if __name__ == '__main__':
 
     pp.bin_features()
 
-    #pp.data.to_csv('./data/binned_data.csv', index=False)
-    pp.encode_features()
+    pp.data.to_csv('./data/binned_data.csv', index=False)
+    #pp.encode_features()
 
     #pp.data.fillna(value=int(-1), inplace=True)
 
-    pp.data.to_csv('./data/preprocessed_data.csv', index=False)  # from ADR-Predict/ dir
+    #pp.data.to_csv('./data/preprocessed_data.csv', index=False)  # from ADR-Predict/ dir
 
 
     # commented out for now
