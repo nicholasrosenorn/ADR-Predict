@@ -57,7 +57,11 @@ class PreProcess:
     # function that encodes all the remaining necessary features
     def encode_features(self):
         features = ['occp_cod', 'reporter_country', 'role_cod', 'drugname', 'prod_ai', 'route', 'dechal', 'rechal',
-                    'lot_num', 'dose_form', 'dose_freq', 'rpsr_cod', 'indi_pt']
+                    'lot_num', 'dose_form', 'dose_freq', 'pt', 'outc_cod', 'rpsr_cod', 'indi_pt']
+
+        for column in features:
+            self.data[column] = self.data[column].str.lower()
+
         print('Before Encoding')
         encoded_data = pd.get_dummies(data=self.data, columns=features, drop_first=True, dtype=int, prefix=features)
         #encoded_data.to_csv('./data/encoded_data.csv')
