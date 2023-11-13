@@ -42,6 +42,7 @@ dose_unit: enumerate (might need to weight this?)
 dose_form: enumerate
 dose_freq: enumerate (might need to weight this)
 caseid_x: drop this (duplicate)
+outc_cod: encode (Will be used as a class label)
 rpsr_cod: enumerate
 caseid_y: drop this (duplicate)
 dsg_drug_seq: dropped as used for linking

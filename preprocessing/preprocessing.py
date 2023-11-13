@@ -2,6 +2,9 @@ import math
 
 import pandas as pd
 import numpy as np
+from category_encoders import TargetEncoder
+import warnings
+warnings.filterwarnings('ignore')
 
 
 # function that looks at all columns and checks if they have one value assigned to it.
@@ -57,13 +60,32 @@ class PreProcess:
     # function that encodes all the remaining necessary features
     def encode_features(self):
         features = ['occp_cod', 'reporter_country', 'role_cod', 'drugname', 'prod_ai', 'route', 'dechal', 'rechal',
-                    'lot_num', 'dose_form', 'dose_freq', 'rpsr_cod', 'indi_pt']
+                    'lot_num', 'dose_form', 'dose_freq', 'pt', 'outc_cod', 'rpsr_cod', 'indi_pt']
+
+        for column in features:
+            self.data[column] = self.data[column].str.lower()
+
         print('Before Encoding')
         encoded_data = pd.get_dummies(data=self.data, columns=features, drop_first=True, dtype=int, prefix=features)
         #encoded_data.to_csv('./data/encoded_data.csv')
         pp.data = pd.concat([pp.data, encoded_data], axis=1)
         pp.data.drop(labels=features, axis=1, inplace=True)
 
+    def target_encode(self):
+        self.data['target'] = self.data['outc_cod'].replace({'LT': 0, 'OT': 1, 'RI': 2, 'HO': 3, 'DS': 4, 'DE': 5, 'CA': 6})
+
+        features = ['occp_cod', 'reporter_country', 'role_cod', 'drugname', 'prod_ai', 'route', 'dechal', 'rechal',
+                    'lot_num', 'dose_form', 'dose_freq', 'pt', 'rpsr_cod', 'indi_pt']
+
+        targets = self.data['target'].unique()
+        for c in features:
+            for t in targets:
+                target_aux = self.data['target'].apply(lambda x: 1 if x == t else 0)
+                encoder = TargetEncoder()
+                self.data[str(c) + '_' + str(t)] = encoder.fit_transform(self.data[c], target_aux)
+
+        features.append('outc_cod')
+        self.data = self.data.drop(labels=features, axis=1)
 
 
 
@@ -81,12 +103,13 @@ if __name__ == '__main__':
 
     pp.bin_features()
 
-    pp.data.to_csv('./data/binned_data.csv', index=False)
+    #pp.data.to_csv('./data/binned_data.csv', index=False)
     #pp.encode_features()
+    pp.target_encode()
 
-    #pp.data.fillna(value=int(-1), inplace=True)
 
-    #pp.data.to_csv('./data/preprocessed_data.csv', index=False)  # from ADR-Predict/ dir
+    # the new decisi
+    pp.data.to_csv('./data/target_data.csv', index=False)  # from ADR-Predict/ dir
 
 
     # commented out for now
