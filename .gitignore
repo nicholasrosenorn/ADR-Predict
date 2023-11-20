@@ -121,6 +121,9 @@ celerybeat.pid
 preprocessed_data.csv
 target_data.csv
 
+unprocessed_data/*
+unprocessed_data
+
 # SageMath parsed files
 *.sage.py
 
